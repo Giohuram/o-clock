@@ -1,0 +1,14 @@
+### IDEAS TO IMPLEMENT
+- Implement Authentification for enterprises
+- When you launch the meeting the system should ask for the meeting name and the participants, their email addresses, their position and their level of accessibility 
+- After the meeting is over, the system should generate a report with the meeting summary and the participants' feedback
+- The system should be able to send reminders to the participants before the meeting starts
+- The system should be able to send reminders to the participants after the meeting ends
+- The system should be able to send reminders to the participants during the meeting
+- The system should be able to send reminders to the participants after the meeting ends
+- The system should be able to send reminders to the participants after the meeting ends
+- O'clock should be able to connect itself to Google Calendar, Microsoft Outlook, and other calendar applications
+- O'clock should be able to connect itself to Zoom, Microsoft Teams, and other video conferencing applications
+- O'clock should be able to connect itself to Slack, Microsoft Teams, and other messaging applications, whatsApp, Telegram and other messaging applications
+- O'clock should be able to connect itself to Google Drive, Microsoft OneDrive, and other file storage applications
+- O'clock should be able to connect itself to Google Docs, Microsoft Word, canva, powerpoint and other document editing applications
