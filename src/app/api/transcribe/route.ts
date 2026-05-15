@@ -4,7 +4,6 @@ import OpenAI from "openai";
 export async function POST(req: NextRequest) {
   try {
     const formData = await req.formData();
-    // @ts-expect-error: FormData.get typings conflict with Next.js server types
     const audioFile = formData.get("file");
 
     if (!audioFile) {
