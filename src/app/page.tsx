@@ -1,6 +1,7 @@
 "use client";
 
-import Link from "next/link";
+import { useState } from "react";
+import { useRouter } from "next/navigation";
 import {
   Brain,
   FileText,
@@ -16,6 +17,7 @@ import {
 } from "lucide-react";
 import { useLang } from "@/lib/LanguageContext";
 import LanguageSwitcher from "@/components/LanguageSwitcher";
+import MeetingPlannerModal, { type MeetingData } from "@/components/MeetingPlannerModal";
 
 const skillIcons = [Brain, FileText, CheckSquare, MessageSquare, Database, Zap, BarChart3];
 const skillColors = ["#6366f1", "#8b5cf6", "#a78bfa", "#7c3aed", "#6366f1", "#8b5cf6", "#a78bfa"];
@@ -24,6 +26,14 @@ const featureColors = ["#6366f1", "#8b5cf6", "#a78bfa"];
 
 export default function Home() {
   const { t } = useLang();
+  const router = useRouter();
+  const [plannerOpen, setPlannerOpen] = useState(false);
+
+  const handleStartMeeting = (data: MeetingData) => {
+    sessionStorage.setItem("oclock_meeting", JSON.stringify(data));
+    router.push("/app");
+  };
+
   return (
     <div className="min-h-screen" style={{ background: "#0a0b0f" }}>
       {/* Nav */}
@@ -42,11 +52,13 @@ export default function Home() {
         </div>
         <div className="flex items-center gap-3">
           <LanguageSwitcher />
-          <Link href="/app"
+          <button
+            id="nav-launch-demo-btn"
+            onClick={() => setPlannerOpen(true)}
             className="px-4 py-2 rounded-lg text-sm font-semibold text-white transition-all hover:opacity-90"
-            style={{ background: "linear-gradient(135deg, #6366f1, #8b5cf6)" }}>
+            style={{ background: "linear-gradient(135deg, #6366f1, #8b5cf6)", border: "none", cursor: "pointer" }}>
             {t.nav.tryDemo}
-          </Link>
+          </button>
         </div>
       </nav>
 
@@ -75,12 +87,14 @@ export default function Home() {
         </p>
 
         <div className="flex flex-col sm:flex-row gap-4">
-          <Link href="/app"
+          <button
+            id="hero-launch-demo-btn"
+            onClick={() => setPlannerOpen(true)}
             className="glow-btn px-8 py-4 rounded-xl font-bold text-white text-lg transition-all hover:scale-105"
-            style={{ background: "linear-gradient(135deg, #6366f1, #8b5cf6)" }}>
+            style={{ background: "linear-gradient(135deg, #6366f1, #8b5cf6)", border: "none", cursor: "pointer" }}>
             {t.hero.cta}
             <ArrowRight className="inline-block ml-2 w-5 h-5" />
-          </Link>
+          </button>
           <a href="#skills"
             className="px-8 py-4 rounded-xl font-semibold text-gray-300 text-lg transition-all hover:text-white"
             style={{ border: "1px solid rgba(255,255,255,0.12)", background: "rgba(255,255,255,0.04)" }}>
@@ -198,12 +212,14 @@ export default function Home() {
             {t.cta.title}<br />{t.cta.title2}
           </h2>
           <p className="text-xl text-gray-400 mb-10">{t.cta.subtitle}</p>
-          <Link href="/app"
+          <button
+            id="cta-launch-demo-btn"
+            onClick={() => setPlannerOpen(true)}
             className="inline-flex items-center gap-3 px-10 py-5 rounded-2xl font-bold text-white text-xl transition-all hover:scale-105 glow-btn"
-            style={{ background: "linear-gradient(135deg, #6366f1, #8b5cf6)" }}>
+            style={{ background: "linear-gradient(135deg, #6366f1, #8b5cf6)", border: "none", cursor: "pointer" }}>
             {t.cta.button}
             <ArrowRight className="w-6 h-6" />
-          </Link>
+          </button>
         </div>
       </section>
 
@@ -217,6 +233,12 @@ export default function Home() {
         </div>
         <p className="text-xs text-gray-600">{t.footer.tagline}</p>
       </footer>
+
+      <MeetingPlannerModal
+        open={plannerOpen}
+        onClose={() => setPlannerOpen(false)}
+        onStart={handleStartMeeting}
+      />
     </div>
   );
 }

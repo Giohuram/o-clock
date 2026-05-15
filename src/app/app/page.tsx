@@ -24,7 +24,9 @@ import {
   Square,
   Share2,
   ListTodo,
+  Info,
 } from "lucide-react";
+import { type MeetingData } from "@/components/MeetingPlannerModal";
 
 const DEMO_TRANSCRIPT = `Meeting: Q2 Product Roadmap Review
 Date: Today
@@ -87,6 +89,7 @@ export default function AppPage() {
   const [transcribing, setTranscribing] = useState(false);
   const [savedTasks, setSavedTasks] = useState<Task[]>([]);
   const [showTasks, setShowTasks] = useState(false);
+  const [meetingData, setMeetingData] = useState<MeetingData | null>(null);
   
   const reportRef = useRef<HTMLDivElement>(null);
   const mediaRecorderRef = useRef<MediaRecorder | null>(null);
@@ -94,7 +97,7 @@ export default function AppPage() {
 
   const loadDemo = () => setTranscript(DEMO_TRANSCRIPT);
 
-  // Load saved tasks on mount
+  // Load saved tasks and meeting data on mount
   useEffect(() => {
     const saved = localStorage.getItem("oclock-tasks");
     if (saved) {
@@ -102,6 +105,19 @@ export default function AppPage() {
         setSavedTasks(JSON.parse(saved));
       } catch (e) {
         console.error("Failed to load tasks", e);
+      }
+    }
+
+    const meeting = sessionStorage.getItem("oclock_meeting");
+    if (meeting) {
+      try {
+        const parsed = JSON.parse(meeting) as MeetingData;
+        setMeetingData(parsed);
+        // Pre-fill transcript with meeting header
+        const header = `Meeting: ${parsed.title}\nDate: ${parsed.date} at ${parsed.time}\nLocation: ${parsed.location}\nObjective: ${parsed.objective}\nParticipants: ${parsed.participants.map(p => `${p.name}${p.role ? ` (${p.role})` : ""}`).join(", ")}\n\n`;
+        setTranscript(header);
+      } catch (e) {
+        console.error("Failed to load meeting data", e);
       }
     }
   }, []);
@@ -345,6 +361,49 @@ export default function AppPage() {
           <h1 className="text-3xl md:text-4xl font-black text-white mb-3">{t.app.pageTitle}</h1>
           <p className="text-gray-400">{t.app.pageSubtitle}</p>
         </div>
+
+        {/* Planned Meeting Info */}
+        {meetingData && (
+          <div className="mb-8 rounded-2xl p-6 relative overflow-hidden" style={{ border: "1px solid rgba(99,102,241,0.3)", background: "rgba(99,102,241,0.05)" }}>
+            <div className="absolute top-0 right-0 p-4 opacity-10">
+              <Clock size={120} />
+            </div>
+            <div className="relative z-10">
+              <div className="flex items-center gap-2 mb-4">
+                <span className="text-xs px-2 py-1 rounded bg-indigo-500/20 text-indigo-300 font-bold uppercase tracking-wider">Session Active</span>
+                <div className="flex items-center gap-1.5 text-xs text-green-400 font-medium">
+                  <span className="w-2 h-2 rounded-full bg-green-500 animate-pulse"></span>
+                  Enregistrement prêt
+                </div>
+              </div>
+              <h2 className="text-2xl font-bold text-white mb-2">{meetingData.title}</h2>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-y-3 gap-x-8 mt-4">
+                <div className="flex items-center gap-3 text-sm text-gray-300">
+                  <Clock size={16} className="text-indigo-400" />
+                  <span>{meetingData.date} à {meetingData.time}</span>
+                </div>
+                <div className="flex items-center gap-3 text-sm text-gray-300">
+                  <Info size={16} className="text-indigo-400" />
+                  <span>{meetingData.location}</span>
+                </div>
+                <div className="flex items-center gap-3 text-sm text-gray-300 col-span-full">
+                  <div className="font-bold text-indigo-300 shrink-0">Objectif:</div>
+                  <span className="italic">"{meetingData.objective}"</span>
+                </div>
+                <div className="flex items-start gap-3 text-sm text-gray-300 col-span-full mt-1">
+                  <div className="font-bold text-indigo-300 shrink-0 mt-1">Participants:</div>
+                  <div className="flex flex-wrap gap-2">
+                    {meetingData.participants.map(p => (
+                      <span key={p.id} className="px-2 py-1 rounded-md bg-white/5 border border-white/10 text-xs">
+                        {p.name} <span className="text-gray-500">({p.role})</span>
+                      </span>
+                    ))}
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        )}
 
         {/* Recording section */}
         <div className="mb-6 flex justify-center gap-3">
