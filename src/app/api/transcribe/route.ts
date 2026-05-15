@@ -3,10 +3,10 @@ import OpenAI from "openai";
 
 export async function POST(req: NextRequest) {
   try {
-    const formData = await req.formData();
-    const audioFile = formData.get("file");
+    const rawForm = await req.formData();
+    const audioFile = (rawForm as unknown as { get(key: string): File | string | null }).get("file");
 
-    if (!audioFile) {
+    if (!audioFile || typeof audioFile === "string") {
       return NextResponse.json({ error: "No audio file provided" }, { status: 400 });
     }
 
