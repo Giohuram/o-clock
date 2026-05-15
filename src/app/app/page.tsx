@@ -343,12 +343,12 @@ export default function AppPage() {
           <span className="font-bold text-white">O&apos;Clock AI</span>
           <span className="text-xs px-2 py-0.5 rounded-full ml-1 font-medium" style={{ background: "rgba(99,102,241,0.2)", color: "#a5b4fc" }}>{t.app.liveDemoTag}</span>
         </div>
-        <div className="flex items-center gap-2">
+        <div className="flex items-center gap-1 md:gap-2">
           <LanguageSwitcher />
-          <Link href="/knowledge-base" className="text-xs px-3 py-2 rounded-lg text-gray-400 hover:text-white transition-colors">
+          <Link href="/knowledge-base" className="hidden sm:block text-xs px-3 py-2 rounded-lg text-gray-400 hover:text-white transition-colors">
             {t.app.knowledgeBase}
           </Link>
-          <Link href="/analytics" className="text-xs px-3 py-2 rounded-lg text-gray-400 hover:text-white transition-colors">
+          <Link href="/analytics" className="hidden sm:block text-xs px-3 py-2 rounded-lg text-gray-400 hover:text-white transition-colors">
             {t.app.analytics}
           </Link>
         </div>
@@ -591,7 +591,7 @@ export default function AppPage() {
                     <CheckCircle2 className="w-4 h-4" style={{ color: "#86efac" }} />
                     <span className="text-sm font-bold text-white">{t.app.meetingReport}</span>
                   </div>
-                  <div className="flex items-center gap-2">
+                  <div className="flex flex-wrap items-center gap-2">
                     <button
                       onClick={() => {
                         const text = `Check out this O'Clock AI Meeting Report:\n\n${report}`;
@@ -599,21 +599,21 @@ export default function AppPage() {
                         setCopied(true);
                         setTimeout(() => setCopied(false), 2000);
                       }}
-                      className="flex items-center gap-1.5 text-xs px-3 py-1.5 rounded-md transition-colors hover:opacity-80 font-medium"
+                      className="flex items-center gap-1.5 text-[10px] sm:text-xs px-2 sm:px-3 py-1.5 rounded-md transition-colors hover:opacity-80 font-medium"
                       style={{ background: "rgba(99,102,241,0.2)", color: "#a5b4fc" }}>
-                      <Share2 className="w-3.5 h-3.5" />
-                      {t.app.share}
+                      <Share2 className="w-3 sm:w-3.5 h-3 sm:h-3.5" />
+                      <span className="hidden xs:inline">{t.app.share}</span>
                     </button>
                     <button onClick={handleCopy}
-                      className="flex items-center gap-1.5 text-xs px-3 py-1.5 rounded-md transition-colors hover:opacity-80 font-medium"
+                      className="flex items-center gap-1.5 text-[10px] sm:text-xs px-2 sm:px-3 py-1.5 rounded-md transition-colors hover:opacity-80 font-medium"
                       style={{ background: "rgba(255,255,255,0.06)", color: "#c9cdd9" }}>
-                      {copied ? <Check className="w-3.5 h-3.5" /> : <Copy className="w-3.5 h-3.5" />}
-                      {copied ? t.app.copied : t.app.copy}
+                      {copied ? <Check className="w-3 sm:w-3.5 h-3 sm:h-3.5" /> : <Copy className="w-3 sm:w-3.5 h-3 sm:h-3.5" />}
+                      <span className="hidden xs:inline">{copied ? t.app.copied : t.app.copy}</span>
                     </button>
                     <button onClick={handleDownload}
-                      className="flex items-center gap-1.5 text-xs px-3 py-1.5 rounded-md transition-colors hover:opacity-80 font-medium"
+                      className="flex items-center gap-1.5 text-[10px] sm:text-xs px-2 sm:px-3 py-1.5 rounded-md transition-colors hover:opacity-80 font-medium"
                       style={{ background: "rgba(99,102,241,0.2)", color: "#a5b4fc" }}>
-                      <Download className="w-3.5 h-3.5" />
+                      <Download className="w-3 sm:w-3.5 h-3 sm:h-3.5" />
                       .md
                     </button>
                   </div>
@@ -631,7 +631,7 @@ export default function AppPage() {
                 <Clock className="w-4 h-4" style={{ color: "#fbbf24" }} />
                 {t.app.tracker72h}
               </h3>
-              <div className="grid grid-cols-3 gap-4 text-center">
+              <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 text-center">
 {(() => {
                   const icons = ["✓", "⏰", "⚠️", "🚨"];
                   const colors = ["#86efac", "#fbbf24", "#f87171", "#f87171"];

@@ -43,7 +43,7 @@ export default function Home() {
           <div className="w-8 h-8 rounded-lg flex items-center justify-center" style={{ background: "linear-gradient(135deg, #6366f1, #8b5cf6)" }}>
             <Clock className="w-4 h-4 text-white" />
           </div>
-          <span className="font-bold text-lg text-white">O&apos;Clock AI</span>
+          <span className="font-bold text-base md:text-lg text-white">O&apos;Clock AI</span>
         </div>
         <div className="hidden md:flex items-center gap-8">
           <a href="#skills" className="text-sm text-gray-400 hover:text-white transition-colors">{t.nav.skills}</a>
@@ -106,11 +106,11 @@ export default function Home() {
       {/* Stats */}
       <section id="stats" className="py-16 px-6"
         style={{ background: "rgba(99,102,241,0.05)", borderTop: "1px solid rgba(99,102,241,0.15)", borderBottom: "1px solid rgba(99,102,241,0.15)" }}>
-        <div className="max-w-5xl mx-auto grid grid-cols-2 md:grid-cols-4 gap-8">
+        <div className="max-w-5xl mx-auto grid grid-cols-2 md:grid-cols-4 gap-6 md:gap-8">
           {t.stats.map((s) => (
             <div key={s.label} className="text-center">
-              <div className="text-4xl font-black mb-2" style={{ color: "#a5b4fc" }}>{s.value}</div>
-              <div className="text-sm text-gray-400">{s.label}</div>
+              <div className="text-3xl md:text-4xl font-black mb-2" style={{ color: "#a5b4fc" }}>{s.value}</div>
+              <div className="text-xs md:text-sm text-gray-400">{s.label}</div>
             </div>
           ))}
         </div>
@@ -164,8 +164,8 @@ export default function Home() {
             <div className="absolute left-6 top-0 bottom-0 w-px" style={{ background: "linear-gradient(to bottom, #6366f1, #8b5cf6, transparent)" }} />
             {t.how.steps.map((item, idx) => (
               // eslint-disable-next-line react/no-array-index-key
-              <div key={idx} className="relative flex gap-6 mb-10 pl-14">
-                <div className="absolute left-0 w-12 h-12 rounded-full flex items-center justify-center font-bold text-sm text-white shrink-0"
+              <div key={idx} className="relative flex gap-4 md:gap-6 mb-10 pl-10 md:pl-14">
+                <div className="absolute left-0 w-8 h-8 md:w-12 md:h-12 rounded-full flex items-center justify-center font-bold text-xs md:text-sm text-white shrink-0"
                   style={{ background: "linear-gradient(135deg, #6366f1, #8b5cf6)", top: "0" }}>
                   {idx + 1}
                 </div>

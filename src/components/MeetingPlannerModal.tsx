@@ -514,6 +514,7 @@ export default function MeetingPlannerModal({ open, onClose, onStart }: Props) {
           color: #a5b4fc; font-size: 0.8rem; line-height: 1.5;
         }
         .step-anim { animation: fadeInUp 0.25s ease both; }
+        
         @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
         @keyframes slideUp {
           from { opacity: 0; transform: translateY(24px) scale(0.97); }
@@ -526,6 +527,21 @@ export default function MeetingPlannerModal({ open, onClose, onStart }: Props) {
         input[type="date"]::-webkit-calendar-picker-indicator,
         input[type="time"]::-webkit-calendar-picker-indicator {
           filter: invert(0.7);
+        }
+
+        @media (max-width: 640px) {
+          .modal-overlay { padding: 0.5rem; }
+          .modal-box { border-radius: 16px; max-height: 95vh; }
+          .modal-header { padding: 1.25rem 1.25rem 0.75rem; }
+          .modal-body { padding: 1rem 1.25rem; }
+          .modal-footer { padding: 0.875rem 1.25rem; }
+          .modal-btn-primary { padding: 9px 16px; font-size: 0.8rem; }
+          .modal-btn-secondary { padding: 9px 14px; font-size: 0.8rem; }
+          
+          /* Force single column on mobile */
+          div[style*="grid-template-columns: 1fr 1fr"] {
+            grid-template-columns: 1fr !important;
+          }
         }
       `}</style>
     </div>
